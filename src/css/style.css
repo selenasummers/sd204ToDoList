@@ -25,7 +25,6 @@ h1{
     margin: 8px 0;
     border-radius: 4px;
     border-color: gray;
-    color: black;
 }
 
 .input-form:hover{
@@ -34,7 +33,7 @@ h1{
 
 button{
     background-color: #e699b2; 
-    padding: 8px;
+    padding: 10px;
     border-radius: 5px;
     cursor: pointer;
     width: 40px;
