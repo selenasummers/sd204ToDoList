@@ -1,41 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nodejs Website</title>
     <link href='https://fonts.googleapis.com/css?family=Cinzel Decorative' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
-    <center>
-        <div class="overlay">
-            <h1>NOTES</h1>
-            <form method="POST" action="/post">
-                <input name="date" class="input-form" type="date" placeholder="Date" required>
-                <input name="subject" class="input-form" type="text" placeholder="Subject Title" required>
-                <input name="todo" class="input-form" type="text" placeholder="Task" required>
-                <button type="submit" class="button">Add</button>
-            </form>
 
-            <table>
-                <tbody>
-                    <% for (i=0;i<data.length;i++){%>
-                    <tr>
-                        <td><%=data[i].date%></td>
-                        <td><%=data[i].subject%></td>
-                        <td><%=data[i].todo%></td>
-                        <td>
-                            <form method="POST" action="/delete">
-                                <input name="id" type="text" hidden value="<%=i %>">
-                                <input type="submit" value="done" class="button">
-                            </form>
-                        </td>
-                    </tr>
-                    <%}%>
+<body>
+    <%function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }%>
+    <center>
+
+        <h1>NOTES</h1>
+        <form method="POST" action="./">
+            <input name="date" id="date" class="input-form" type="date" placeholder="Date" required>
+            <input name="subject" class="input-form" type="text" placeholder="Subject Title" required>
+            <input name="task" class="input-form" type="text" placeholder="Task" required>
+            <button type="submit"><i class="fa fa-check icon"></i></button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>DATE</th>
+                    <th>SUBJECT</th>
+                    <th>TASK</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (i=0;i<data.length;i++){%>
+                <tr>
+                    <td><%=formatDate(data[i].date)%></td>
+                    <td><%=data[i].subject%></td>
+                    <td><%=data[i].task%></td>
+                    <td>
+                        <a href="./delete/<%=data[i]._id%>"><button><i class="fa fa-trash-o icon"></i></button></a>
+                        <a href="./<%=data[i]._id%>"><button><i class="fa fa-pencil icon"></i></button></a>
+                    </td>
+                </tr>
+                <%}%>
                 </tbody>
-            </table>
-        </div>
+        </table>
     </center>
 </body>
 </html>
